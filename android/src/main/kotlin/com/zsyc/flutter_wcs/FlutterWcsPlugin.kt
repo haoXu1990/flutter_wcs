@@ -26,6 +26,7 @@ class FlutterWcsPlugin: FlutterPlugin, MethodCallHandler {
       result.success("Android ${android.os.Build.VERSION.RELEASE}")
     } else {
       result.notImplemented()
+      
     }
   }
 

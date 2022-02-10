@@ -12,7 +12,7 @@ class FlutterWcs {
     return version;
   }
 
-  static Future<String> normalUpload(String token,
+  static Future<bool> normalUpload(String token,
       {required String? fileURL, required String? fileName, String? key, String? mimeType}) async {
     final params = {
       "fileURL": fileURL,

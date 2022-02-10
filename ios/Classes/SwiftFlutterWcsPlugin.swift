@@ -95,7 +95,7 @@ extension SwiftFlutterWcsPlugin {
                 }
             } else {
                 DispatchQueue.main.async {
-                    result("恭喜你，上传文件成功")
+                    result(true)
                 }
             }
             return nil
