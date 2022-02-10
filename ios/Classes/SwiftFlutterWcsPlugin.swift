@@ -3,29 +3,41 @@ import UIKit
 import WCSiOS
 
 public class SwiftFlutterWcsPlugin: NSObject, FlutterPlugin {
-
-    var wcsToken: String?
-    var wcsUploadDomain: String?
-
-    var wcsUploadClient: WCSClient!
+    public static var channel: FlutterMethodChannel?
+    public static var wcsUploadClient: WCSClient?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "flutter_wcs", binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterWcsPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
-
-        instance.wcsUploadClient = WCSClient.init(baseURL: URL.init(string: "http://wpxq5tzp.up19.v1.wcsapi.com")!, andTimeout: TimeInterval.init(30))
-        NSLog("这里是 iOS Navite 初始化完成")
+        SwiftFlutterWcsPlugin.channel = channel
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if call.method == "getPlatformVersion" {
           result(getSystemVersion())
         } else if call.method == "normalUpload" {
-            wcsNomalUpload(call: call, result: result)
+            wcsNormalUpload(call: call, result: result)
+        } else if call.method == "initSDK" {
+            initSDK(call: call, result: result)
         } else {
           result(FlutterMethodNotImplemented)
         }
+    }
+
+    public func initSDK(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let arguments = call.arguments as? [String: Any] else {
+            let error = FlutterError.init(code: "10001", message: "参数解析错误", details: "没有获取到有效参数")
+            result(error)
+            return
+        }
+
+        if let uploadDomain = arguments["uploadDomain"] as? String {
+            // http://wpxq5tzp.up19.v1.wcsapi.com
+            SwiftFlutterWcsPlugin.wcsUploadClient = WCSClient.init(baseURL: URL.init(string: uploadDomain )!,
+                                                                   andTimeout: TimeInterval.init(30))
+        }
+        result(nil)
     }
 
     /// 获取系统版本
@@ -38,7 +50,7 @@ public class SwiftFlutterWcsPlugin: NSObject, FlutterPlugin {
 extension SwiftFlutterWcsPlugin {
 
     /// 网宿普通上传接口
-    public func wcsNomalUpload(call: FlutterMethodCall, result: @escaping FlutterResult) {
+    public func wcsNormalUpload(call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let arguments = call.arguments as? [String: Any] else {
             let error = FlutterError.init(code: "10001", message: "参数解析错误", details: "没有获取到有效参数")
             result(error)
@@ -47,35 +59,60 @@ extension SwiftFlutterWcsPlugin {
 
         let request = WCSUploadObjectRequest.init()
 
-        request.token = "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:ZDMwNDVlODA1ZjQxNDFiMmJiOWNmNWUxMTljNTY2MzJiYTcyNGEyNw==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QucG5nIiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjowLCJmc2l6ZUxpbWl0IjowfQ=="
-
-        request.fileName = "IMG_0007-thumb"
-        request.key = "IMG_0007-thumb"
-        if let fileURL = arguments["fileURL"] as? String {
-            request.fileURL = URL.init(string: fileURL)
-            NSLog("获取到的文件 URL: \(String(describing: request.fileURL))")
+        if let token = arguments["token"] as? String {
+            request.token = token
         }
 
-        request.key = ""
-        NSLog("获取到的文件 URL: dfa")
+        if let fileURL = arguments["fileURL"] as? String {
+            request.fileURL = URL.init(string: fileURL)
+        }
+
+        if let fileName = arguments["fileName"] as? String {
+            request.fileName = fileName
+        }
+
+        if let key = arguments["key"] as? String {
+            request.key = key
+        }
 
         request.setUploadProgress { bytesSent, totaolBytesSent, totalBytesExpectedToSend in
-
             DispatchQueue.main.async {
-                NSLog("======\(totaolBytesSent) \(totalBytesExpectedToSend)\n")
+                let params = [
+                    "bytesSent": UInt64(bytesSent),
+                    "totaolBytesSent": UInt64(totaolBytesSent),
+                    "totalBytesExpectedToSend": UInt64(totalBytesExpectedToSend),
+                ]
+
+                SwiftFlutterWcsPlugin.invokeListener(type: .NormalUploadProgress, params: params)
             }
         }
 
-       self.wcsUploadClient.uploadRequest(request).continue({ task in
+        SwiftFlutterWcsPlugin.wcsUploadClient?.uploadRequest(request).continue({ task in
             if task.error != nil {
-                result("哦豁，上传文件出错了")
+                DispatchQueue.main.async {
+                    let error = FlutterError.init(code: "10002", message: "上传文件出错", details: task.error?.localizedDescription)
+                    result(error)
+                }
             } else {
-                result("恭喜你，上传文件成功")
+                DispatchQueue.main.async {
+                    result("恭喜你，上传文件成功")
+                }
             }
             return nil
         })
+    }
+}
 
-//        upLoadResult.set
-//        result(upLoadResult.result?.resultString ?? "毛都没有")
+
+extension SwiftFlutterWcsPlugin {
+
+    public static func invokeListener(type: ListenerType, params: Any?) {
+            var resultParams: [String: Any] = [:];
+            resultParams["type"] = type;
+            if let params = params {
+                resultParams["params"] = params;
+            }
+        let result = JsonUtil.toJson(resultParams)
+        SwiftFlutterWcsPlugin.channel!.invokeMethod("onListener", arguments: result)
     }
 }

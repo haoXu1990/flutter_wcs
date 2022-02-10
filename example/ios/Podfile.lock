@@ -2,6 +2,8 @@ PODS:
   - Flutter (1.0.0)
   - flutter_wcs (0.0.1):
     - Flutter
+  - image_picker (0.0.1):
+    - Flutter
   - "permission_handler (5.1.0+2)":
     - Flutter
   - photo_album_manager (0.0.1):
@@ -10,6 +12,7 @@ PODS:
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_wcs (from `.symlinks/plugins/flutter_wcs/ios`)
+  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
   - photo_album_manager (from `.symlinks/plugins/photo_album_manager/ios`)
 
@@ -18,6 +21,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_wcs:
     :path: ".symlinks/plugins/flutter_wcs/ios"
+  image_picker:
+    :path: ".symlinks/plugins/image_picker/ios"
   permission_handler:
     :path: ".symlinks/plugins/permission_handler/ios"
   photo_album_manager:
@@ -26,9 +31,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_wcs: 22c712226b6cc988f4a809595ba7b27efa9c292d
+  image_picker: 541dcbb3b9cf32d87eacbd957845d8651d6c62c3
   permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   photo_album_manager: c25d95cb4528e98cbd0c7300efa2f910d2fa27b2
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wcs/flutter_wcs.dart';
-import 'package:photo_album_manager/photo_album_manager.dart';
+import 'package:flutter_wcs/utils/enum_util.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:logger/logger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +16,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static final Logger _logger = Logger();
   @override
   void initState() {
     super.initState();
+    FlutterWcs.addListener(_listener);
+    FlutterWcs.initWCS("http://wpxq5tzp.up19.v1.wcsapi.com");
+  }
+
+  @override
+  void dispose() {
+    FlutterWcs.removeListener(_listener);
+    super.dispose();
+  }
+
+  _listener(type, params) {
+    _logger.d("[${EnumUtil.getEnumName(type)}]:$params");
   }
 
   @override
@@ -37,12 +52,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   void tap() async {
-    List<AlbumModelEntity> photos = await PhotoAlbumManager.getDescAlbum(maxCount: 10);
-    final entity = photos.first;
-    print(entity.toJson());
+    // List<AlbumModelEntity> photos = await PhotoAlbumManager.getDescAlbum(maxCount: 10);
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickVideo(source: ImageSource.gallery);
+
+    // const wcsToken =
+    //     "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:ZDMwNDVlODA1ZjQxNDFiMmJiOWNmNWUxMTljNTY2MzJiYTcyNGEyNw==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QucG5nIiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjowLCJmc2l6ZUxpbWl0IjowfQ==";
+    const wcsToken =
+        "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:YmU5ZDFjOTJlZmFlYjc2MWFlZGQyMTIyYTQ2NTIxMmY1NzYxZDZkYg==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QubXA0IiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjowLCJmc2l6ZUxpbWl0IjowfQ==";
 
     // 调用插件
-    final result = await FlutterWcs.normalUpload(fileURL: entity.thumbPath);
-    print(result);
+    try {
+      final result = await FlutterWcs.normalUpload(wcsToken, fileName: "iOSUploadTest", fileURL: image!.path);
+      _logger.d(result);
+    } catch (e) {
+      _logger.d(e.toString());
+    }
   }
 }
