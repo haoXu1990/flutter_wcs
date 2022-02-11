@@ -56,11 +56,10 @@ class _MyAppState extends State<MyApp> {
     final ImagePicker _picker = ImagePicker();
     final XFile? image = await _picker.pickVideo(source: ImageSource.gallery);
 
-    // const wcsToken =
-    //     "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:ZDMwNDVlODA1ZjQxNDFiMmJiOWNmNWUxMTljNTY2MzJiYTcyNGEyNw==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QucG5nIiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjowLCJmc2l6ZUxpbWl0IjowfQ==";
     const wcsToken =
-        "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:YmU5ZDFjOTJlZmFlYjc2MWFlZGQyMTIyYTQ2NTIxMmY1NzYxZDZkYg==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QubXA0IiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjowLCJmc2l6ZUxpbWl0IjowfQ==";
-
+        "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:N2Q5NmI2MDMyYjQyNjFiY2JlZjk1N2QxOWI1ZDc1YjNlNTY4NTRjNA==:eyJzY29wZSI6ImZsYXJlYnVjazAxOmlPU1VwbG9hZFRlc3QubXA0IiwiZGVhZGxpbmUiOiIyNTI0NjIyNDAwMDAwIiwib3ZlcndyaXRlIjoxLCJmc2l6ZUxpbWl0IjowfQ==";
+    // const wcsToken =
+    //     "xhv3UpQ8UBlOppftNVQpvz9M1z6BhY6uNZ2p:NzYzNmEzYTI5ZWE1NGI2M2FjNWM5NTY5ZGJlMDhkMzQwZGFkMTk1Mg==:eyJzY29wZSI6InVwbG9hZHR0dDppT1NVcGxvYWRUZXN0Lm1wNCIsImRlYWRsaW5lIjoiMjUyNDYyMjQwMDAwMCIsIm92ZXJ3cml0ZSI6MSwiZnNpemVMaW1pdCI6MH0=";
     // 调用插件
     try {
       final result = await FlutterWcs.normalUpload(wcsToken, fileName: "iOSUploadTest", fileURL: image!.path);
