@@ -79,7 +79,7 @@ extension SwiftFlutterWcsPlugin {
             DispatchQueue.main.async {
                 let params = [
                     "bytesSent": UInt64(bytesSent),
-                    "totaolBytesSent": UInt64(totaolBytesSent),
+                    "totalBytesSent": UInt64(totaolBytesSent),
                     "totalBytesExpectedToSend": UInt64(totalBytesExpectedToSend),
                 ]
 
