@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wcs/flutter_wcs.dart';
 import 'package:flutter_wcs/utils/enum_util.dart';
-import 'package:flutter_wcs_example/flare_camera_page.dart';
+import 'package:flutter_wcs_example/flare_kamera_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 

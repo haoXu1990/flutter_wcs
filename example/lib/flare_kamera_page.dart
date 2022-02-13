@@ -18,8 +18,9 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
   CameraController? controller;
 
   List<CameraDescription> cameras = [];
-
   CameraDescription? activeCamera;
+
+  XFile? _currentXFile;
 
   int _pointers = 0;
   double _currentScale = 1.0;
@@ -231,7 +232,7 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
     }
   }
 
-  /// set interset point and exposure
+  /// Set interset point and exposure
   ///
   /// set interset point from [details] and [constraints]
   void onViewFinderTap(TapDownDetails details, BoxConstraints constraints) {
@@ -249,7 +250,8 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
     cameraController.setFocusPoint(offset);
   }
 
-  /// reset Kamera
+  /// Reset Kamera
+  ///
   /// reset kamera with [description]
   void onNewCameraSelected(CameraDescription description) async {
     if (controller != null) {
