@@ -33,6 +33,9 @@ dependencies:
   # photo_album_manager: ^1.2.0 
   image_picker: ^0.8.4+7
   logger: ^1.0.0
+  video_player: ^2.2.18 
+  camera: ^0.9.4+11
+  image_gallery_saver: '^1.7.1'
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wcs/flutter_wcs.dart';
 import 'package:flutter_wcs/utils/enum_util.dart';
+import 'package:flutter_wcs_example/flare_camera_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const DemoApp());
+}
+
+class DemoApp extends StatelessWidget {
+  const DemoApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      title: "Demo",
+      home: FlareKameraPage(),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
