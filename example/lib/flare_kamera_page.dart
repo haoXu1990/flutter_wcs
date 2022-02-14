@@ -4,7 +4,6 @@ import 'package:flutter_wcs_example/flare_camera_close_widget.dart';
 import 'package:flutter_wcs_example/flare_kamera_filter_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
-import 'flare_camera_bottom_widget.dart';
 import 'flare_kamera_effects_widget.dart';
 
 class FlareKameraPage extends StatefulWidget {
@@ -22,7 +21,7 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
   List<CameraDescription> cameras = [];
   CameraDescription? activeCamera;
 
-  XFile? _currentXFile;
+  // XFile? _currentXFile;
 
   int _pointers = 0;
   double _currentScale = 1.0;
@@ -230,6 +229,75 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
 
   // Mark: - Kamera
 
+  /// Recording
+  ///
+
+  Future<void> startVideoRecording() async {
+    final CameraController? cameraController = controller;
+
+    if (cameraController == null || !cameraController.value.isInitialized) {
+      logError("10001", message: "有可用摄像头");
+      return;
+    }
+
+    if (cameraController.value.isRecordingVideo) {
+      // A recording is already started, do nothing.
+      return;
+    }
+
+    try {
+      await cameraController.startVideoRecording();
+    } on CameraException catch (e) {
+      logError(e.code, message: e.description);
+      return;
+    }
+  }
+
+  Future<XFile?> stopVideoRecording() async {
+    final CameraController? cameraController = controller;
+
+    if (cameraController == null || !cameraController.value.isRecordingVideo) {
+      return null;
+    }
+
+    try {
+      return cameraController.stopVideoRecording();
+    } on CameraException catch (e) {
+      logError(e.code, message: e.description);
+      return null;
+    }
+  }
+
+  Future<void> pauseVideoRecording() async {
+    final CameraController? cameraController = controller;
+
+    if (cameraController == null || !cameraController.value.isRecordingVideo) {
+      return;
+    }
+
+    try {
+      await cameraController.pauseVideoRecording();
+    } on CameraException catch (e) {
+      logError(e.code, message: e.description);
+      rethrow;
+    }
+  }
+
+  Future<void> resumeVideoRecording() async {
+    final CameraController? cameraController = controller;
+
+    if (cameraController == null || !cameraController.value.isRecordingVideo) {
+      return;
+    }
+
+    try {
+      await cameraController.resumeVideoRecording();
+    } on CameraException catch (e) {
+      logError(e.code, message: e.description);
+      rethrow;
+    }
+  }
+
   /// Picture
   ///
   /// take a picture with
@@ -247,7 +315,7 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
       XFile file = await cameraController.takePicture();
       return file;
     } on CameraException catch (e) {
-      logError(e.code, e.description);
+      logError(e.code, message: e.description);
       return null;
     }
   }
@@ -290,7 +358,7 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
       if (mounted) setState(() {});
 
       if (cameraController.value.hasError) {
-        logError("00", cameraController.value.errorDescription);
+        logError("00", message: cameraController.value.errorDescription);
       }
     });
 
@@ -300,13 +368,13 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
       await cameraController.getMinZoomLevel().then((value) => _minAvailableZoom = value);
     } on CameraException catch (e) {
       cameraController.dispose();
-      logError(e.code, e.description);
+      logError(e.code, message: e.description);
     }
   }
 
   /// print log
   ///
-  void logError(String code, String? message) {
+  void logError(String code, {String? message}) {
     if (message != null) {
       print('Error: $code\nError Message: $message');
     } else {
