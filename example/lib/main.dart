@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wcs/flutter_wcs.dart';
 import 'package:flutter_wcs/utils/enum_util.dart';
 import 'package:flutter_wcs_example/flare_kamera_page.dart';
+import 'package:flutter_wcs_example/flare_kamera_filter_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 
@@ -16,7 +17,9 @@ class DemoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: "Demo",
-      home: FlareKameraPage(),
+      // home: MySwiperPage(),
+      // home: FlareKameraPage(),
+      home: MyApp(),
     );
   }
 }
@@ -56,14 +59,25 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: GestureDetector(
-            onTap: tap,
-            child: const Text('点我上传', style: TextStyle(fontSize: 24, color: Colors.red)),
+            onTap: tapCamera,
+            child: const Text('点我拍摄', style: TextStyle(fontSize: 24, color: Colors.red)),
           ),
         ),
       ),
     );
   }
 
+  // 拍摄
+  void tapCamera() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FlareKameraPage(),
+      ),
+    );
+  }
+
+  // 上传文件
   void tap() async {
     // List<AlbumModelEntity> photos = await PhotoAlbumManager.getDescAlbum(maxCount: 10);
     final ImagePicker _picker = ImagePicker();

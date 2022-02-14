@@ -1,9 +1,11 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wcs_example/flare_camera_close_widget.dart';
+import 'package:flutter_wcs_example/flare_kamera_filter_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import 'flare_camera_bottom_widget.dart';
+import 'flare_kamera_effects_widget.dart';
 
 class FlareKameraPage extends StatefulWidget {
   const FlareKameraPage({Key? key}) : super(key: key);
@@ -69,18 +71,22 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
             right: 0,
             child: FlareCameraCloseWidget(
               onTapClose: () {
-                final description = inactiveCamera();
-                if (description != null) {
-                  onNewCameraSelected(description);
-                }
+                Navigator.pop(context);
               },
+            ),
+          ),
+          Positioned(
+            top: 44,
+            right: 10,
+            child: FlareKameraEffectsWidget(
+              onTapEffects: (p0) => onTakCameraEffects(p0),
             ),
           ),
           Positioned(
             left: 0,
             right: 0,
             bottom: 34,
-            child: FlareCameraBottomWidget(
+            child: FlareKameraFilterWidget(
               onTakePicture: onTakePicturePress,
             ),
           ),
@@ -125,6 +131,20 @@ class _FlareKameraPageState extends State<FlareKameraPage> with WidgetsBindingOb
         saveXFile(value);
       }
     });
+  }
+
+  void onTakeVideo() {}
+
+  void onTakCameraEffects(KameraEffectEnum effectEnum) {
+    switch (effectEnum) {
+      case KameraEffectEnum.swap:
+        final description = inactiveCamera();
+        if (description != null) {
+          onNewCameraSelected(description);
+        }
+        break;
+      default:
+    }
   }
 
   // Mark: - Private Method
