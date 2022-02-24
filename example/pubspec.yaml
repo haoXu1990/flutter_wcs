@@ -37,6 +37,9 @@ dependencies:
   camera: ^0.9.4+11
   image_gallery_saver: ^1.7.1
   flutter_swiper_null_safety: ^1.0.2
+  ffmpeg_kit_flutter_full: 4.5.1
+
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:
