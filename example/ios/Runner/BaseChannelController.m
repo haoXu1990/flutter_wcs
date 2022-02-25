@@ -10,7 +10,7 @@
 
 @interface BaseChannelController () <IESEditorLoggerDelegate,NLELoggerDelegate>
 
-@property (nonatomic, strong) FlutterMethodChannel *channel;
+@property (nonatomic, strong) FlutterBasicMessageChannel *channel;
 
 @end
 
@@ -21,18 +21,39 @@ static NSMutableDictionary *modelNameDic;
 
 - (instancetype)initWithMessenger:(NSObject<FlutterBinaryMessenger>*)messenger {
     if (self = [super init]) {
-        self.channel = [FlutterMethodChannel methodChannelWithName:@"com.wcs.fire.BaseMessageChannel" binaryMessenger:messenger];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationFuncion:) name:@"ios.to.flutter" object:nil];
+        self.channel = [[FlutterBasicMessageChannel alloc] initWithName:@"com.wcs.fire.BaseMessageChannel" binaryMessenger:messenger codec:nil];
+//        self.channel = [FlutterMethodChannel methodChannelWithName:@"com.wcs.fire.BaseMessageChannel" binaryMessenger:messenger];
 
         __weak __typeof(self)weakSelf = self;
-        [self.channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
-            if ([call.method isEqual:@"initSDK"]) {
-                [weakSelf initSDK];
-            }
+
+        [self.channel setMessageHandler:^(id  _Nullable message, FlutterReply  _Nonnull callback) {
+            NSLog(@"%@", message);
         }];
+
+//        [self.channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
+//            if ([call.method isEqual:@"initSDK"]) {
+//
+//                [weakSelf initSDK];
+//
+//                [[VERootVCManger shareManager] swichRootVC];
+//            }
+//        }];
     }
     return self;
 }
 
+- (void)notificationFuncion: (NSNotification *) notification {
+    // iOS 中其他页面向Flutter 中发送消息通过这里
+    // 本页中 可以直接使用   [messageChannel sendMessage:dic];
+    //处理消息
+    NSLog(@"ios.to.flutter mesge: %@ ", notification.object);
+//    [self.channel sendMessage:<#(id _Nullable)#>];
+//    [self.channel setMethodCallHandler:^(FlutterMethodCall * _Nonnull call, FlutterResult  _Nonnull result) {
+//
+//    }];
+
+}
 
 
 - (void)initSDK {

@@ -243,7 +243,8 @@ VECollectionViewBaseFlowLayoutDelegate
                 cell.backgroundColor = HEXRGBCOLOR(0x4C4C4D);
                 cell.layer.cornerRadius = 4;
                 cell.clipsToBounds = YES;
-                
+
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ios.to.flutter" object:@"这是一个参数"];
                 return cell;
             }
             break;
