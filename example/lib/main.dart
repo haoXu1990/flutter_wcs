@@ -1,5 +1,6 @@
 import 'package:ffmpeg_kit_flutter_full/ffmpeg_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_wcs/flutter_wcs.dart';
 import 'package:flutter_wcs/utils/enum_util.dart';
 import 'package:flutter_wcs_example/flare_kamera_page.dart';
@@ -35,6 +36,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static final Logger _logger = Logger();
+  static const MethodChannel _channel = MethodChannel('com.wcs.fire.BaseMessageChannel');
+
   @override
   void initState() {
     super.initState();
@@ -61,7 +64,7 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: GestureDetector(
-            onTap: videoToMp3,
+            onTap: tapSDK,
             child: const Text('点我拍摄', style: TextStyle(fontSize: 24, color: Colors.red)),
           ),
         ),
@@ -94,6 +97,10 @@ class _MyAppState extends State<MyApp> {
         }
       }
     });
+  }
+
+  void tapSDK() async {
+    await _channel.invokeMethod("initSDK", {"uploadDomain": "uploadDomain"});
   }
 
   // 拍摄

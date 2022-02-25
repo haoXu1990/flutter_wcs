@@ -1,27 +1,156 @@
 PODS:
   - camera (0.0.1):
     - Flutter
+  - CKEditor (0.1.0):
+    - DVEInject
+    - DVETrackKit
+    - lottie-ios
+    - Masonry
+    - MJExtension
+    - NLEEditor/DVEAlbum
+    - NLEEditor/TOBAdapter
+    - NLEPlatform
+    - ReactiveObjC
+    - Toast
+    - TTVideoEditor
+    - YYModel
+    - YYWebImage
+  - DVEInject (0.0.1)
+  - DVETrackKit (0.2.4):
+    - Masonry
+    - NLEPlatform
+    - PocketSVG
+    - ReactiveObjC
+    - TTVideoEditor (>= 9.x)
+    - YYCache
+    - YYWebImage
+  - ffmpeg-kit-ios-full (4.5.1)
+  - ffmpeg_kit_flutter_full (4.5.1):
+    - ffmpeg_kit_flutter_full/full (= 4.5.1)
+    - Flutter
+  - ffmpeg_kit_flutter_full/full (4.5.1):
+    - ffmpeg-kit-ios-full (= 4.5.1)
+    - Flutter
   - Flutter (1.0.0)
   - flutter_wcs (0.0.1):
     - Flutter
+  - IGListDiffKit (4.0.0)
+  - IGListKit (4.0.0):
+    - IGListDiffKit (= 4.0.0)
   - image_gallery_saver (1.5.0):
     - Flutter
   - image_picker (0.0.1):
     - Flutter
+  - KVOController (1.2.0)
+  - lottie-ios (2.5.3)
+  - Mantle (2.2.0):
+    - Mantle/extobjc (= 2.2.0)
+  - Mantle/extobjc (2.2.0)
+  - Masonry (1.1.0)
+  - MBProgressHUD (1.2.0)
+  - MJExtension (3.4.1)
+  - MJRefresh (3.7.5)
+  - NLEEditor (0.1.0):
+    - NLEEditor/TOBAdapter (= 0.1.0)
+  - NLEEditor/Core (0.1.0):
+    - DVEInject
+    - DVETrackKit
+    - KVOController
+    - lottie-ios (= 2.5.3)
+    - Mantle
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - NLEPlatform
+    - PocketSVG
+    - ReactiveObjC
+    - SDWebImage
+    - SGPagingView (= 1.7.1)
+    - TTVideoEditor
+    - YYModel
+  - NLEEditor/DVEAlbum (0.1.0):
+    - IGListDiffKit
+    - IGListKit
+    - KVOController
+    - Masonry
+    - MBProgressHUD
+  - NLEEditor/TOBAdapter (0.1.0):
+    - DVETrackKit
+    - NLEEditor/Core
+    - NLEPlatform
+  - NLEPlatform (0.2.4):
+    - TTVideoEditor (>= 9.x)
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - PocketSVG (2.7.2)
+  - ReactiveObjC (3.1.1)
+  - SDWebImage (5.12.3):
+    - SDWebImage/Core (= 5.12.3)
+  - SDWebImage/Core (5.12.3)
+  - SGPagingView (1.7.1)
+  - Toast (4.0.0)
+  - TTVideoEditor (9.6.0.11-D)
   - video_player_avfoundation (0.0.1):
     - Flutter
+  - YYCache (1.0.4)
+  - YYImage (1.0.4):
+    - YYImage/Core (= 1.0.4)
+  - YYImage/Core (1.0.4)
+  - YYModel (1.0.4)
+  - YYWebImage (1.0.5):
+    - YYCache
+    - YYImage
 
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
+  - CKEditor (from `./CKEditor`)
+  - DVEInject (= 0.0.1)
+  - DVETrackKit (= 0.2.4)
+  - ffmpeg_kit_flutter_full (from `.symlinks/plugins/ffmpeg_kit_flutter_full/ios`)
   - Flutter (from `Flutter`)
   - flutter_wcs (from `.symlinks/plugins/flutter_wcs/ios`)
   - image_gallery_saver (from `.symlinks/plugins/image_gallery_saver/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
+  - NLEEditor (from `./NLEEditor-iOS`)
+  - NLEPlatform (= 0.2.4)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
+  - TTVideoEditor (= 9.6.0.11-D)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
+
+SPEC REPOS:
+  https://github.com/volcengine/volcengine-specs.git:
+    - DVEInject
+    - DVETrackKit
+    - NLEPlatform
+    - TTVideoEditor
+  trunk:
+    - ffmpeg-kit-ios-full
+    - IGListDiffKit
+    - IGListKit
+    - KVOController
+    - lottie-ios
+    - Mantle
+    - Masonry
+    - MBProgressHUD
+    - MJExtension
+    - MJRefresh
+    - PocketSVG
+    - ReactiveObjC
+    - SDWebImage
+    - SGPagingView
+    - Toast
+    - YYCache
+    - YYImage
+    - YYModel
+    - YYWebImage
 
 EXTERNAL SOURCES:
   camera:
     :path: ".symlinks/plugins/camera/ios"
+  CKEditor:
+    :path: "./CKEditor"
+  ffmpeg_kit_flutter_full:
+    :path: ".symlinks/plugins/ffmpeg_kit_flutter_full/ios"
   Flutter:
     :path: Flutter
   flutter_wcs:
@@ -30,17 +159,48 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/image_gallery_saver/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
+  NLEEditor:
+    :path: "./NLEEditor-iOS"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   video_player_avfoundation:
     :path: ".symlinks/plugins/video_player_avfoundation/ios"
 
 SPEC CHECKSUMS:
   camera: 9993f92f2c793e87b65e35f3a23c70582afb05b1
+  CKEditor: 44d4c4b016fc21f206d27c223ddc87c21573491a
+  DVEInject: e75b26e6d00dbe5138314d2359b31daee99437f1
+  DVETrackKit: 13a83a1076534f3b59fa5bc86d0306fd658f9a4a
+  ffmpeg-kit-ios-full: 1e918caa885a00501ec1606c68a874d07d681705
+  ffmpeg_kit_flutter_full: 74713292f1ad354663b6e8fbf96a0af0ec1efa2c
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_wcs: 22c712226b6cc988f4a809595ba7b27efa9c292d
+  IGListDiffKit: 665d6cf43ce726e676013db9c7d6c4294259b6b2
+  IGListKit: fd5a5d21935298f5849fa49d426843cff97b77c7
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   image_picker: 541dcbb3b9cf32d87eacbd957845d8651d6c62c3
+  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  Mantle: c5aa8794a29a022dfbbfc9799af95f477a69b62d
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJExtension: 21c5f6f8c4d5d8844b7ae8fbae08fed0b501f961
+  MJRefresh: fdf5e979eb406a0341468932d1dfc8b7f9fce961
+  NLEEditor: 6ccc5c833746d5c5e1d966d58e558489a520fbb3
+  NLEPlatform: d2cc73eccf8286ab74c06e7805679c38757a18dd
+  path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
+  PocketSVG: c597e6916641fd2674d2f0cabca0d1869cb82880
+  ReactiveObjC: 011caa393aa0383245f2dcf9bf02e86b80b36040
+  SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
+  SGPagingView: 2ac3cec4ea8d1156c7522e521e2799123602ae28
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  TTVideoEditor: d9872878f727b02bfd27c03a773065e9e655c5cd
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 26175df28986262f3302841f8ef49d0459f0e863
 
 COCOAPODS: 1.11.2

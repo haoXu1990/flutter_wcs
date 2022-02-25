@@ -28,10 +28,20 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
-  use_frameworks!
-  use_modular_headers!
+#  use_frameworks!
+#  use_modular_headers!
+  platform :ios, '13.0'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  pod 'NLEEditor', :path => './NLEEditor-iOS'
+  pod 'CKEditor', :path => './CKEditor'
+
+  pod 'TTVideoEditor', '9.6.0.11-D', :source => 'https://github.com/volcengine/volcengine-specs.git'
+
+  pod 'NLEPlatform', '0.2.4', :source => 'https://github.com/volcengine/volcengine-specs.git'
+  pod 'DVETrackKit', '0.2.4', :source => 'https://github.com/volcengine/volcengine-specs.git'
+  pod 'DVEInject', '0.0.1', :source => 'https://github.com/volcengine/volcengine-specs.git'
+
 end
 
 post_install do |installer|
